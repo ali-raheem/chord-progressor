@@ -1,0 +1,12 @@
+{
+  "name": "chord-progressor",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "node --test",
+    "release": "node scripts/release.mjs"
+  }
+}

@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#7256da">
+  <meta name="description" content="Practice guitar chord progressions with a focused timer. Pick progressions and keys, then play each one until the timer moves you on.">
+  <title>Chord Progressor — Play the changes</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css?v=v1">
+  <script type="module" src="./app.js"></script>
+  <script type="module" src="./pwa.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="Chord Progressor home"><img src="./favicon.svg" alt="" width="36" height="36"><span>chord<span class="brand-light">progressor</span><span class="brand-dot">.</span></span></a>
+    <span class="header-note"><span class="little-dot"></span>Same chords. A song every time.</span>
+    <button class="help-button" id="help-button"><span data-icon="help"></span><span>How it works</span></button>
+  </header>
+
+  <main class="page">
+    <div class="page-heading"><div><div class="eyebrow">MAKE TIME FOR YOUR MUSIC</div><h1>Play the changes.</h1><p>Progressions are where chords turn into songs.</p></div><span class="practice-label"><span data-icon="guitar"></span> YOUR DAILY PRACTICE SPACE</span></div>
+    <div class="workspace">
+      <aside class="setup card">
+        <div class="section-title"><span class="number-label">01</span><h2>Make it yours</h2><span data-icon="sliders"></span></div>
+        <fieldset id="settings"><legend class="sr-only">Practice settings</legend>
+          <div class="field-title"><span class="field-name" id="progressions-label">Choose progressions</span><span id="selected-count">2 selected</span></div>
+          <p class="field-description">Each one gets its own turn on the timer.</p>
+          <div class="progression-groups" id="progression-groups" role="group" aria-labelledby="progressions-label"></div>
+          <div class="selection-actions"><button type="button" id="select-all">Select all</button><span>·</span><button type="button" id="clear-selection">Clear</button></div>
+          <div class="divider"></div>
+          <div class="field-title"><span class="field-name" id="keys-label">Keys</span><span id="keys-count">3 selected</span></div>
+          <p class="field-description">Each round picks one of these at random.</p>
+          <div class="key-buttons" id="key-buttons" role="group" aria-labelledby="keys-label"></div>
+          <div class="selection-actions"><button type="button" id="open-keys">Open-chord keys</button><span>·</span><button type="button" id="all-keys">All 12</button></div>
+          <div class="divider"></div>
+          <div class="field-title"><span class="field-name" id="order-label">Chord order</span><span data-icon="shuffle"></span></div>
+          <div class="segmented" id="order-options" role="group" aria-labelledby="order-label"><button type="button" data-order="written" class="selected" aria-pressed="true">As written</button><button type="button" data-order="shuffled" aria-pressed="false">Shuffled</button></div>
+          <p class="field-description time-hint" id="order-hint">The order is what makes it a progression.</p>
+          <div class="field-title"><label for="duration">Time per progression</label><span data-icon="clock"></span></div>
+          <div class="duration-presets" id="duration-presets"><button type="button" data-duration="30">30 sec</button><button type="button" data-duration="60" class="selected">1 min</button><button type="button" data-duration="120">2 min</button><button type="button" id="custom-duration">Custom</button></div>
+          <div class="custom-time" id="custom-time" hidden><input id="duration" type="number" inputmode="numeric" min="10" max="900" value="60" step="1"><span>seconds (10–900)</span></div>
+          <div class="divider"></div>
+          <div class="field-title"><span class="field-name" id="cycles-label">Cycles</span><span data-icon="repeat"></span></div>
+          <div class="stepper" role="group" aria-labelledby="cycles-label"><button type="button" class="icon-button" id="cycles-down" aria-label="Fewer cycles"><span data-icon="minus"></span></button><output id="cycles" aria-live="polite">2</output><button type="button" class="icon-button" id="cycles-up" aria-label="More cycles"><span data-icon="plus"></span></button></div>
+          <p class="field-description time-hint">One cycle plays every chosen progression once.</p>
+        </fieldset>
+        <div class="session-summary"><span data-icon="list"></span><p><strong id="summary-rounds">4 rounds</strong><span id="summary-time">4:00 of practice</span></p></div>
+        <p class="settings-note" id="settings-note">A fresh order and fresh keys each session.</p>
+        <div class="install-panel" id="install-panel" hidden>
+          <button class="primary-button" id="install-button" type="button">Install app</button>
+          <p>Keep your practice close. Play offline, too.</p>
+        </div>
+        <p class="install-status" id="install-status" role="status" hidden></p>
+      </aside>
+
+      <section class="practice-area" aria-label="Practice session">
+        <div class="practice-card card">
+          <div class="practice-topline"><span class="status-pill" id="status-pill"><span class="little-dot"></span><span id="status">READY WHEN YOU ARE</span></span><div class="topline-actions"><button class="icon-button" id="awake-toggle" type="button" aria-label="Keep the screen awake during practice" aria-pressed="false" title="Keep the screen awake during practice"><span data-icon="screen-off"></span></button><button class="icon-button" id="sound-toggle" type="button" aria-label="Enable sound at progression changes" aria-pressed="false" title="Enable sound at progression changes"><span data-icon="volume-off"></span></button></div></div>
+          <div class="practice-intro"><h2 id="practice-title">Pop anthem</h2><p id="practice-description">Get comfortable, grab your guitar, and let’s play.</p></div>
+          <div class="round-stage" id="round-stage">
+            <div class="round-meta"><span class="key-pill" id="key-pill">C major</span><span class="order-pill" id="order-pill" hidden><span data-icon="shuffle"></span>Shuffled</span></div>
+            <ol class="progression-strip" id="progression-strip" aria-label="Chords in order"></ol>
+            <p class="loop-note"><span data-icon="repeat"></span>Loop it until the timer moves on</p>
+            <div class="shapes" id="shapes" aria-label="Chord shapes"></div>
+          </div>
+          <div class="completion" id="completion" hidden><div class="completion-icon"><span data-icon="check"></span></div><h3>That’s the changes, played.</h3><p id="completion-message"></p></div>
+          <div class="timer-area"><span class="timer-label" id="timer-label">TIME PER PROGRESSION</span><div class="timer" id="timer" role="timer" aria-label="Time remaining">1:00</div><div class="timer-track"><div id="timer-fill"></div></div></div>
+          <div class="practice-controls"><button class="icon-button reset-button" id="reset-button" aria-label="End session and return to setup" title="End session and return to setup" disabled><span data-icon="reset"></span></button><button class="primary-button" id="start-button"><span data-icon="play"></span><span>Start practice</span></button><button class="icon-button skip-button" id="skip-button" aria-label="Skip to next progression" title="Skip to next progression" disabled><span data-icon="skip"></span></button></div>
+          <p class="keyboard-hint" id="keyboard-hint">Press <kbd>space</kbd> to start or pause</p>
+          <div class="practice-footer"><span><span class="little-dot"></span><span id="round-counter">4 rounds. One focused session.</span></span><span id="up-next"><span data-icon="arrow"></span> <span id="up-next-text">Up next: —</span></span></div>
+        </div>
+        <div class="queue-card card"><div class="queue-heading"><h2><span data-icon="list"></span>Your practice flow</h2><button id="shuffle-button"><span data-icon="shuffle"></span> Reshuffle</button></div><div class="queue" id="queue" tabindex="0" role="region" aria-label="Practice rounds, scroll to see more"></div><div class="session-progress"><div><span id="progress-label">Ready to make a little progress?</span><span id="progress-percent">0%</span></div><div class="overall-track"><div id="overall-fill"></div></div></div></div>
+        <div class="tip"><span class="tip-icon" data-icon="sparkles"></span><p><strong>Hear where it’s going.</strong> Say the numerals as you play. Once you know a progression as I–V–vi–IV, it works in every key.</p></div>
+      </section>
+    </div>
+    <footer class="page-footer"><span>Less thinking. More playing.</span><span>Made for the love of six strings <span class="footer-star">✳</span></span><div class="footer-install" id="footer-install"><button class="footer-install-button" id="footer-install-button" type="button">Install app</button><p class="install-status" id="footer-install-status" role="status" hidden></p></div><p class="build-info" id="build-info"></p></footer>
+    <div class="sr-only" id="announcement" role="status" aria-live="polite"></div>
+  </main>
+
+  <dialog id="help-dialog"><div class="dialog-heading"><h2>A little structure. A better practice.</h2><button class="icon-button" id="close-help" aria-label="Close instructions"><span data-icon="close"></span></button></div><ol><li><strong>Pick progressions and keys.</strong> Choose one or more progressions, the keys to play them in, how long each one lasts, and how many cycles to play.</li><li><strong>Play it on a loop.</strong> The chords are shown in order. Strum through them, then go back to the first chord and repeat until the timer runs out. Shapes are shown below the chords: numbers are fingers, ○ is an open string, × means don’t play it, and strings run from low E on the left to high e on the right.</li><li><strong>Follow the flow.</strong> When the timer ends, the next progression comes up in a new key. Each cycle plays every progression once, in a random order.</li></ol><h3>Why keep the order?</h3><p>The order is what makes a progression. Each chord pulls toward the next, and V going home to I is the sound your ear expects. Shuffled, the same four chords don’t sound like the song any more. Leave <em>As written</em> on for real practice. Use <em>Shuffled</em> as a drill when you want the changes themselves to become automatic, whichever chord comes next. To vary practice and keep it musical, choose more keys instead.</p><p>Roman numerals name each chord by its place in the key: uppercase is major, lowercase is minor, and ♭VII is the chord a semitone below the seventh note of the scale. Pause anytime with the space bar.</p><button class="primary-button" id="got-it">Let’s play <span data-icon="arrow"></span></button></dialog>
+</body>
+</html>
