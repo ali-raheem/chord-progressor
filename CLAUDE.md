@@ -32,3 +32,14 @@ A vanilla-JS, zero-dependency PWA, structured the same way as the sibling `../Ch
 ## Adding or changing files
 
 Keep `SHIPPED_FILES` in `shipped-files.js` and `APP_FILES` in `sw.js` in sync. When any cached file changes, bump `CACHE_VERSION` in `sw.js` and the `?v=` on the stylesheet link in `index.html`.
+
+## Deployment
+
+Live at https://shoryuken.me/cp/ (server conventions are in `../CLAUDE.md`). Server details and history (kept here rather than in the public README):
+
+- Server: `root@185.163.204.17`, static directory `/var/www/shoryuken.me/cp`
+- Nginx: the `/cp` blocks in `/etc/nginx/sites-enabled/shoryuken.me` (bare `/cp` redirects to `/cp/`, `no-cache` everywhere, manifest served as `application/manifest+json`).
+- First deployed 2026-10-04 (commit `c8fcb58`, cache v1). The Nginx config from before `/cp` was added is backed up at `/var/backups/chordprogressor/20261004T085651Z/`.
+- Deploy: commit, bump `CACHE_VERSION`, `npm run release`, back up the current `cp/`, then `rsync -a --delete --chmod=D755,F644 dist/ root@185.163.204.17:/var/www/shoryuken.me/cp/`. Verify in Chromium (Cloudflare blocks scripted probes) that the footer shows the deployed commit.
+
+GitHub Pages also deploys from `main` via `.github/workflows/pages.yml`.
