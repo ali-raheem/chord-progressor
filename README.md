@@ -45,3 +45,7 @@ Upload the contents of `dist/` (including `icons/`) to a directory served over H
 - Nginx: the `/cp` blocks in `/etc/nginx/sites-enabled/shoryuken.me` (bare `/cp` redirects to `/cp/`, `no-cache` everywhere, manifest served as `application/manifest+json`).
 - First deployed 2026-10-04 (commit `c8fcb58`, cache v1). The Nginx config from before `/cp` was added is backed up at `/var/backups/chordprogressor/20261004T085651Z/`.
 - Deploy: commit, bump `CACHE_VERSION`, `npm run release`, back up the current `cp/`, then `tar czf - -C dist . | ssh root@185.163.204.17 'tar xzf - --no-same-owner -C /var/www/shoryuken.me/cp'`. Verify in Chromium (Cloudflare blocks scripted probes) that the footer shows the deployed commit.
+
+## Licence
+
+[MIT](LICENSE) © 2026 Ali Raheem.
