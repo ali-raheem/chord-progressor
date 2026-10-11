@@ -1,5 +1,14 @@
 # Chord Progressor
 
+[![CI](https://github.com/ali-raheem/chord-progressor/actions/workflows/ci.yml/badge.svg)](https://github.com/ali-raheem/chord-progressor/actions/workflows/ci.yml) [![GitHub Pages](https://github.com/ali-raheem/chord-progressor/actions/workflows/pages.yml/badge.svg)](https://github.com/ali-raheem/chord-progressor/actions/workflows/pages.yml)
+
+**▶ Try it live: [shoryuken.me/cp](https://shoryuken.me/cp/)** · mirror on [GitHub Pages](https://ali-raheem.github.io/chord-progressor/) · installable, works offline
+
+<p align="center">
+  <a href="https://shoryuken.me/cp/"><img src="docs/screenshots/desktop.webp" alt="Chord Progressor on a desktop browser" width="74%"></a>
+  <a href="https://shoryuken.me/cp/"><img src="docs/screenshots/mobile.webp" alt="Chord Progressor on a phone" width="22%"></a>
+</p>
+
 A focused guitar chord progression practice app. Pick progressions and keys, set the time per progression and the number of cycles, then loop each progression until the timer moves you on to the next one in a new key.
 
 - 14 built-in progressions (pop, classic, jazz & blues, minor), written in Roman numerals and transposed to any of the 12 keys.
